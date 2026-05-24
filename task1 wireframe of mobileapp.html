@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>genZ Learn UI</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background: #f4f4f4;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .screens {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 18px;
+      width: 100%;
+      max-width: 1700px;
+    }
+
+    .phone {
+      width: 100%;
+      max-width: 320px;
+      height: 680px;
+      background: #fff;
+      border: 2px solid #222;
+      border-radius: 34px;
+      overflow: hidden;
+      position: relative;
+      margin: 0 auto;
+    }
+
+    .status-bar {
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 10px 0;
+      font-size: 13px;
+      color: #111;
+    }
+
+    .dynamic-island {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #1a1a1a;
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .top-icons {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .icon-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #111;
+      display: inline-block;
+    }
+
+    .screen {
+      padding: 18px 18px 12px;
+      height: calc(100% - 28px);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .center {
+      text-align: center;
+    }
+
+    .spacer {
+      flex: 1;
+    }
+
+    .splash-circle {
+      width: 108px;
+      height: 108px;
+      border-radius: 50%;
+      background: #fafafa;
+      box-shadow: 0 0 25px rgba(0,0,0,0.06) inset, 0 0 18px rgba(0,0,0,0.05);
+      margin: 120px auto 0;
+    }
+
+    .brand {
+      margin-top: 82px;
+      font-size: 28px;
+      font-weight: 400;
+      letter-spacing: 0.3px;
+    }
+
+    .tagline {
+      margin-top: 8px;
+      font-size: 18px;
+      color: #222;
+    }
+
+    .dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .dots span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #ddd;
+      display: inline-block;
+    }
+
+    .dots span.active {
+      background: #111;
+    }
+
+    .btn {
+      width: 100%;
+      height: 50px;
+      border: none;
+      background: #ddd;
+      border-radius: 12px;
+      font-size: 18px;
+      color: #111;
+      cursor: pointer;
+    }
+
+    .login-title {
+      margin-top: 10px;
+      font-size: 34px;
+      font-family: Georgia, 'Times New Roman', serif;
+      font-weight: 400;
+    }
+
+    .sub {
+      font-size: 20px;
+      margin-top: 2px;
+      font-family: Georgia, 'Times New Roman', serif;
+    }
+
+    .label {
+      margin-top: 24px;
+      font-size: 19px;
+      font-family: Georgia, 'Times New Roman', serif;
+    }
+
+    .input {
+      margin-top: 10px;
+      width: 100%;
+      height: 46px;
+      border: none;
+      border-radius: 16px;
+      background: #f4f4f4;
+      padding: 0 16px;
+      outline: none;
+      font-size: 14px;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    .input-icon {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 18px;
+      color: #444;
+    }
+
+    .forgot {
+      text-align: right;
+      margin-top: 10px;
+      font-size: 14px;
+      font-family: Georgia, 'Times New Roman', serif;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 18px 0;
+      color: #111;
+      font-family: Georgia, 'Times New Roman', serif;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: #111;
+    }
+
+    .social {
+      width: 100%;
+      height: 44px;
+      border-radius: 18px;
+      background: #f4f4f4;
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      margin-top: 12px;
+      font-size: 15px;
+    }
+
+    .social .logo {
+      width: 28px;
+      font-size: 24px;
+      font-weight: bold;
+      margin-right: 12px;
+    }
+
+    .bottom-link {
+      margin-top: 18px;
+      text-align: center;
+      font-size: 18px;
+      font-family: Georgia, 'Times New Roman', serif;
+    }
+
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 8px;
+      font-size: 16px;
+    }
+
+    .home-title {
+      font-size: 20px;
+      font-family: Georgia, 'Times New Roman', serif;
+    }
+
+    .search {
+      margin-top: 26px;
+      height: 42px;
+      border: 2px solid #222;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      font-size: 14px;
+      justify-content: space-between;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+      font-size: 14px;
+    }
+
+    .cat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .cat-card {
+      background: #f5f5f5;
+      border-radius: 8px;
+      padding: 12px 8px;
+      text-align: center;
+      min-height: 78px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+    }
+
+    .course-row {
+      display: flex;
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .course-card {
+      width: 100%;
+      background: #dcdcdc;
+      padding: 10px 8px;
+      min-height: 138px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .course-thumb {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #f4f4f4;
+      margin: 0 auto;
+    }
+
+    .course-card .title {
+      font-size: 13px;
+      text-transform: lowercase;
+      margin-top: 8px;
+    }
+
+    .course-card .meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      margin-top: 4px;
+    }
+
+    .nav {
+      border-top: 2px solid #222;
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 70px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      background: #fff;
+      font-size: 11px;
+    }
+
+    .nav .item {
+      text-align: center;
+      color: #111;
+    }
+
+    .back-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 8px;
+      font-size: 18px;
+    }
+
+    .hero {
+      margin-top: 14px;
+      height: 160px;
+      background: #d9d9d9;
+      border-radius: 18px;
+    }
+
+    .course-title {
+      margin-top: 18px;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .chip-row {
+      margin-top: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+    }
+
+    .chip {
+      display: inline-block;
+      background: #d8d8d8;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 11px;
+    }
+
+    .section-title {
+      margin-top: 16px;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .para {
+      margin-top: 10px;
+      font-size: 12px;
+      line-height: 1.45;
+      font-weight: 600;
+    }
+
+    .learn-list {
+      margin-top: 8px;
+      font-size: 12px;
+      line-height: 1.6;
+      font-weight: 600;
+    }
+
+    .enroll {
+      margin-top: 14px;
+      height: 46px;
+      border: none;
+      background: #ddd;
+      border-radius: 10px;
+      font-size: 16px;
+      width: 100%;
+    }
+
+    .profile-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: #d9d9d9;
+      margin: 18px auto 0;
+    }
+
+    .profile-name {
+      text-align: center;
+      margin-top: 18px;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .profile-email {
+      text-align: center;
+      margin-top: 4px;
+      font-size: 14px;
+    }
+
+    .completed-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .completed-card {
+      margin-top: 12px;
+      background: #f4f4f4;
+      border-radius: 16px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .small-thumb {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      background: #d9d9d9;
+    }
+
+    .completed-card .text {
+      flex: 1;
+      font-size: 13px;
+    }
+
+    .options {
+      margin-top: 18px;
+      display: grid;
+      gap: 12px;
+      font-size: 14px;
+    }
+
+    .option {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    @media (max-width: 1350px) {
+      .screens {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 700px;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .screens {
+        grid-template-columns: 1fr;
+        max-width: 340px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="screens">
+
+    <div class="phone">
+      <div class="status-bar">
+        <span>9:30</span>
+        <div class="dynamic-island"></div>
+        <div class="top-icons">
+          <span class="icon-dot"></span>
+          <span class="icon-dot"></span>
+          <span class="icon-dot"></span>
+        </div>
+      </div>
+      <div class="screen center">
+        <div class="splash-circle"></div>
+        <div class="brand">genZ LEARN</div>
+        <div class="tagline">Learn . grow . succeed</div>
+        <div class="spacer"></div>
+        <div class="dots">
+          <span class="active"></span><span></span><span></span>
+        </div>
+        <button class="btn">Get Started</button>
+      </div>
+      <div style="position:absolute;bottom:10px;left:50%;transform:translateX(-50%);width:90px;height:4px;background:#111;border-radius:10px;"></div>
+    </div>
+
+    <div class="phone">
+      <div class="status-bar">
+        <span>9:30</span>
+        <div class="dynamic-island"></div>
+        <div class="top-icons">
+          <span class="icon-dot"></span>
+          <span class="icon-dot"></span>
+          <span class="icon-dot"></span>
+        </div>
+      </div>
+      <div class="screen">
+        <div style="font-size:28px;margin-top:4px;">←</div>
+        <div class="login-title">welcome back!</div>
+        <div class="sub">Login to continue</div>
+
+        <div class="label">Email</div>
+        <div class="input-wrap">
+          <input class="input" type="text" placeholder="Enter your email">
+          <span class="input-icon">✉</span>
+        </div>
+
+        <div class="label">Password</div>
+        <div class="input-wrap">
+          <input class="input" type="password" placeholder="Enter your password">
+          <span class="input-icon">◉</span>
+        </div>
+
+        <div class="forgot">Forget Password?</div>
+        <div style="height:18px;"></div>
+        <button class="btn">Login</button>
+
+        <div class="divider">or</div>
+
+        <div class="social"><span class="logo">G</span> continue with google</div>
+        <div class="social"><span class="logo">f</span> continue with facebook</div>
+
+        <div class="bottom-link">Don’t have an account?  sign up</div>
+      </div>
+      <div style="position:absolute;bottom:10px;left:50%;transform:translateX(-50%);width:90px;height:4px;background:#111;border-radius:10px;"></div>
+    </div>
+
+    <div class="phone">
+      <div class="status-bar">
+        <span>9:30</span>
+        <div class="dynamic-island"></div>
+        <div class="top-icons">
+          <span class="icon-dot"></span>
+          <span class="icon-dot"></span>
+          <span class="icon-dot"></span>
+        </div>
+      </div>
+      <div class="screen">
+        <div class="header-row">
+          <div style="font-size:28px;">☰</div>
+          <div class="home-title">Home</div>
+          <div style="font-size:24px;">🔔</div>
+        </div>
+
+        <div class="search">
+          <span>search for courses...</span>
+          <span style="font-size:20px;">⌕</span>
+        </div>
+
+        <div class="section-head">
+          <span>catagories</span>
+          <span>view all</span>
+        </div>
+
+        <div class="cat-grid">
+          <div class="cat-card">🖥<div>Technology</div></div>
+          <div class="cat-card">⚗<div>Science</div></div>
+          <div class="cat-card">🧮<div>Mathematics</div></div>
+          <div class="cat-card">🎨<div>Art& design</div></div>
+        </div>
+
+        <div class="section-head" style="margin-top:18px;">
+          <span>Featured courses</span>
+          <span>view all</span>
+        </div>
+
+        <div class="course-row">
+          <div class="course-card">
+            <div class="course-thumb"></div>
+            <div class="title">ui/ux design</div>
+            <div class="meta"><span>Beginner</span><span>★ 4.5</span></div>
+          </div>
+          <div class="course-card">
+            <div class="course-thumb"></div>
+            <div class="title">java basics</div>
+            <div class="meta"><span>Beginner</span><span>★ 4.5</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="nav">
+        <div class="item">⌂<br>home</div>
+        <div class="item">📖<br>my courses</div>
+        <div class="item">☆<br>wishlist</div>
+        <div class="item">◉<br>profile</div>
+      </div>
+    </div>
+
+    <div class="phone">
+      <div class="status-bar">
+        <span>9:30</span>
+        <div class="dynamic-island"></div>
+        <div class="top-icons">
+          <span class="icon-dot"></span>
+          <span class="icon-dot"></span>
+          <span class="icon-dot"></span>
+        </div>
+      </div>
+      <div class="screen">
+        <div class="back-row">
+          <div>←</div>
+          <div>🔖</div>
+        </div>
+        <div class="hero"></div>
+        <div class="course-title">UI&UX Design Fundamentals</div>
+        <div class="chip-row">
+          <span class="chip">Beginner</span>
+          <span>☆ 4.5 (128)</span>
+        </div>
+
+        <div class="section-title">About this course</div>
+        <div class="para">
+          learn the fundamentals of UI&UX Design
+          and build real-world projects.This course
+          covers everything you need to get started
+          as a UI&UX designer
+        </div>
+
+        <div style="margin-top:12px;border-top:1px solid #111;"></div>
+
+        <div class="section-title">what you’ll learn</div>
+        <div class="learn-list">
+          • introduction to UI&UX Design<br>
+          • wireframe &prototyping<br>
+          • user Research Basics<br>
+          • Design Tools Overview
+        </div>
+
+        <button class="enroll">Enroll Now</button>
+      </div>
+      <div style="position:absolute;bottom:10px;left:50%;transform:translateX(-50%);width:90px;height:4px;background:#111;border-radius:10px;"></div>
+    </div>
+
+    <div class="phone">
+      <div class="status-bar">
+        <span>9:30</span>
+        <div class="dynamic-island"></div>
+        <div class="top-icons">
+          <span class="icon-dot"></span>
+          <span class="icon-dot"></span>
+          <span class="icon-dot"></span>
+        </div>
+      </div>
+      <div class="screen">
+        <div class="header-row">
+          <div style="font-size:28px;">☰</div>
+          <div class="home-title" style="font-weight:700;">Profile</div>
+          <div style="font-size:24px;">⚙</div>
+        </div>
+
+        <div class="profile-avatar"></div>
+        <div class="profile-name">Jay Dev</div>
+        <div class="profile-email">jaydev@email.com</div>
+
+        <div class="completed-head">
+          <span>Completed Courses</span>
+          <span>view all</span>
+        </div>
+
+        <div class="completed-card">
+          <div class="small-thumb"></div>
+          <div class="text">UI&UX Design Fundamentals<br><span style="font-size:12px;">completed</span></div>
+          <div style="font-size:28px;">✓</div>
+        </div>
+
+        <div class="completed-card">
+          <div class="small-thumb"></div>
+          <div class="text">Java Basics<br><span style="font-size:12px;">completed</span></div>
+          <div style="font-size:28px;">✓</div>
+        </div>
+
+        <div class="options">
+          <div class="option">🏅 My Certificates</div>
+          <div class="option">☆ wishlist</div>
+          <div class="option">⚙ settings</div>
+          <div class="option">⇦ Log out</div>
+        </div>
+      </div>
+
+      <div class="nav">
+        <div class="item">⌂<br>home</div>
+        <div class="item">📖<br>my courses</div>
+        <div class="item">☆<br>wishlist</div>
+        <div class="item">◉<br>profile</div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
